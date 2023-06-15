@@ -37,4 +37,13 @@ public class WeatherForecastController : ControllerBase
 
         return new OkObjectResult(result);
     }
+
+    [HttpPost]
+    [Route("dummyPost")]
+    [ProducesResponseType(typeof(IEnumerable<WeatherForecast>),200)]
+    [ProducesResponseType(400)]
+    public async Task<IActionResult> Post([FromBody] string xml)
+    {
+        return new OkObjectResult(xml);
+    }    
 }   
