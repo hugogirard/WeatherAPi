@@ -47,11 +47,15 @@ jobs:
         with:
           name: .net-app
 
+      - name: Azure Login
+        uses: Azure/login@v1
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
+
       - name: Deploy to Azure Web App
         id: deploy-to-webapp
         uses: azure/webapps-deploy@v2
         with:
           app-name: 'wthapihg'
-          slot-name: 'Production'
-          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_ED539226EDDE4926BB3D684583E27C03 }}
+          slot-name: 'Production'        
           package: .
