@@ -5,11 +5,11 @@ using System.Threading.Tasks;
 namespace WeatherAPi.Repository
 {
 
-    public class LocationRepository : ILocationRepository
+    public class LocationRepositoryInMemory : ILocationRepository
     {
         public ConcurrentDictionary<string, IEnumerable<WeatherForecast>> Locations { get; set; }
 
-        public LocationRepository()
+        public LocationRepositoryInMemory()
         {
             Locations = new ConcurrentDictionary<string, IEnumerable<WeatherForecast>>();
         }

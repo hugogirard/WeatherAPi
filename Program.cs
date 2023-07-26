@@ -4,7 +4,19 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddSingleton<IWeatherRepository,WeatherRepository>();
-builder.Services.AddSingleton<ILocationRepository, LocationRepository>();
+
+// Validate if we use in memory repository
+bool useInMemory = builder.Configuration.GetValue<bool>("UseInMemoryRepository", true);
+
+if (useInMemory) 
+{
+    builder.Services.AddSingleton<ILocationRepository, LocationRepositoryInMemory>();
+}
+else 
+{
+
+}
+
 builder.Services.AddSingleton<IWeatherService, WeatherService>();
 
 builder.Services.AddControllers();
