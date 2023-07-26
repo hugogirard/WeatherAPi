@@ -14,7 +14,7 @@ if (useInMemory)
 }
 else 
 {
-
+    builder.Services.AddSingleton<ILocationRepository, DocumentLocationRepository>();
 }
 
 builder.Services.AddSingleton<IWeatherService, WeatherService>();
