@@ -14,16 +14,18 @@ namespace WeatherAPi.Repository
             "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
         };
 
-        public async Task<IEnumerable<WeatherForecast>> GetAsync()
+        public async Task<IEnumerable<WeatherForecast>> GetAsync(string name)
         {
             var rng = new Random();
             var result = Enumerable.Range(1, 5).Select(index => new WeatherForecast
-            {
-                Date = DateTime.Now.AddDays(index),
-                TemperatureC = rng.Next(-20, 55),
-                Summary = Summaries[rng.Next(Summaries.Length)]
-            })
-            .ToArray();
+            (
+                Guid.NewGuid().ToString(),
+                DateTime.Now.AddDays(index),
+                rng.Next(-20, 55),
+                Summaries[rng.Next(Summaries.Length)],
+                name
+                
+            )).ToArray();            
 
             return await Task.FromResult(result);
         }

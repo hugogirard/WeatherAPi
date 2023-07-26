@@ -1,15 +1,9 @@
+using System.Text.Json.Serialization;
+
 namespace WeatherAPi;
 
-public class WeatherForecast
-{
-    public string Id { get; set; }
-
-    public DateTime Date { get; set; }
-
-    public int TemperatureC { get; set; }
-
-    public int TemperatureF => 32 + (int)(TemperatureC / 0.5556);
-
-    public string? Summary { get; set; }
-    public string Name { get; set; }
-}
+public record WeatherForecast(string id, 
+                              DateTime date, 
+                              int temperatureC,                               
+                              string? summary, 
+                              string name);

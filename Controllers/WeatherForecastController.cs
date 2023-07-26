@@ -16,34 +16,27 @@ public class WeatherForecastController : ControllerBase
         _weatherService = weatherService;
     }
 
-    [HttpGet]
-    public async Task<IEnumerable<WeatherForecast>> Get()
+    [HttpGet("{name}")]
+    public async Task<IEnumerable<WeatherForecast>> Get(string name)
     {
-        return await _weatherService.GetWeatherAsync();
+        return await _weatherService.GetWeatherByLocationAsync(name);        
     }
 
-    [HttpPost]
-    [Route("saveLocation")]
-    [ProducesResponseType(typeof(IEnumerable<WeatherForecast>),200)]
-    [ProducesResponseType(400)]
-    public async Task<IActionResult> Post([FromBody] LocationViewModel vm)
-    {
-        if (string.IsNullOrEmpty(vm.Name))
-        {
-            return new BadRequestObjectResult("The name of the location cannot be null");
-        }
+    // [HttpPost]
+    // [Route("saveLocation")]
+    // [ProducesResponseType(typeof(IEnumerable<WeatherForecast>),200)]
+    // [ProducesResponseType(400)]
+    // public async Task<IActionResult> Post([FromBody] LocationViewModel vm)
+    // {
 
-        var result = await _weatherService.GetWeatherByLocationAsync(vm.Name);
+    // }
 
-        return new OkObjectResult(result);
-    }
-
-    [HttpPost]
-    [Route("dummyPost")]
-    [ProducesResponseType(typeof(IEnumerable<WeatherForecast>),200)]
-    [ProducesResponseType(400)]
-    public async Task<IActionResult> Post([FromBody] string xml)
-    {
-        return new OkObjectResult(xml);
-    }    
+    // [HttpPost]
+    // [Route("dummyPost")]
+    // [ProducesResponseType(typeof(IEnumerable<WeatherForecast>),200)]
+    // [ProducesResponseType(400)]
+    // public async Task<IActionResult> Post([FromBody] string xml)
+    // {
+    //     return new OkObjectResult(xml);
+    // }    
 }   

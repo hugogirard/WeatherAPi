@@ -17,16 +17,16 @@ namespace WeatherAPi.Services
 
         public async Task<IEnumerable<WeatherForecast>> GetWeatherAsync()
         {
-            return await _weatherRepository.GetAsync();
+            return await _weatherRepository.GetAsync(string.Empty);
         }
 
         public async Task<IEnumerable<WeatherForecast>> GetWeatherByLocationAsync(string name)
         {
             var forecast = await _locationRepository.GetAsync(name);
 
-            if (forecast == null)
+            if (forecast == null || forecast.Count() == 0)
             {
-                forecast = await _weatherRepository.GetAsync();
+                forecast = await _weatherRepository.GetAsync(name);
                 await _locationRepository.SaveAsync(name, forecast);
             }
 

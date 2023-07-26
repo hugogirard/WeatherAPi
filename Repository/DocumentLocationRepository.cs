@@ -1,5 +1,6 @@
 using System.Collections.Concurrent;
 using System.Collections.Generic;
+using System.Text.Json;
 using System.Threading.Tasks;
 using Microsoft.Azure.Cosmos;
 
@@ -47,13 +48,14 @@ namespace WeatherAPi.Repository
             foreach (var item in forecast)
             {
                 WeatherForecast weatherForecast = new WeatherForecast
-                {
-                    Id = Guid.NewGuid().ToString(),
-                    Name = name,
-                    Date = item.Date,
-                    Summary = item.Summary,
-                    TemperatureC = item.TemperatureC
-                };
+                (
+                    Guid.NewGuid().ToString(),                    
+                    item.date,
+                    item.temperatureC,
+                    item.summary,                                        
+                    name
+                );
+                string jsonString = JsonSerializer.Serialize(weatherForecast);
 
                 await _container.CreateItemAsync(weatherForecast, new PartitionKey(name));
             }

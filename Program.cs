@@ -19,7 +19,10 @@ else
 
 builder.Services.AddSingleton<IWeatherService, WeatherService>();
 
-builder.Services.AddControllers();
+builder.Services.AddControllers().AddJsonOptions(o => 
+{
+     o.JsonSerializerOptions.PropertyNamingPolicy = System.Text.Json.JsonNamingPolicy.CamelCase; 
+});
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(c => 
