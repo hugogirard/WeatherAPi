@@ -12,7 +12,8 @@ namespace WeatherAPi.Repository
 
         public DocumentLocationRepository(IConfiguration configuration)
         {
-            var cosmosClient = new CosmosClient(configuration.GetValue<string>("CosmosDbConnectionString"));
+            var cosmosClient = new CosmosClient(accountEndpoint: configuration["CosmosDbEndpoint"], 
+                                                authKeyOrResourceToken: configuration["CosmosDbKey"]);
             _container = cosmosClient.GetContainer("weather","location");
         }
 
